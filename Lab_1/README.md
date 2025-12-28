@@ -38,9 +38,9 @@
 
 | # | Изображение до               | erosion_native                      | openCV                              |
 |---|------------------------------|-------------------------------------|-------------------------------------|
-| 1 | ![](/images/rectangle.png)   | ![](/images/rectangle_native.png)   | ![](/images/rectangle_opencv.png)   |
-| 2 | ![](/images/composition.png) | ![](/images/composition_native.png) | ![](/images/composition_opencv.png) |
-| 3 | ![](/images/j.png)           | ![](/images/j_native.png)           | ![](/images/j_opencv.png)           |
+| 1 | ![](images/rectangle.png)   | ![](images/rectangle_native.png)   | ![](images/rectangle_opencv.png)   |
+| 2 | ![](images/composition.png) | ![](images/composition_native.png) | ![](images/composition_opencv.png) |
+| 3 | ![](images/j.png)           | ![](images/j_native.png)           | ![](images/j_opencv.png)           |
 
 Далее на одном и том же изображении был выполнен расчет времени для разного размера ядра и построен график. 
 
