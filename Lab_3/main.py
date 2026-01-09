@@ -3,7 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from torchvision import datasets, transforms
 from sklearn.metrics import confusion_matrix, classification_report
-from model import SimpleCNN
+
+from Lab_3.model.model import SimpleCNN
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -24,7 +25,7 @@ test_loader = torch.utils.data.DataLoader(
     test_dataset, batch_size=32, shuffle=False
 )
 
-# Загрузка модели
+# Загрузка обученной модели
 model = SimpleCNN(num_classes=len(class_names)).to(device)
 model.load_state_dict(torch.load("model/cnn_food101.pth", map_location=device))
 model.eval()
