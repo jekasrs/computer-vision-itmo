@@ -6,7 +6,7 @@ def read_image(path: str) -> np.ndarray:
     """ Чтение изображения и преобразование в бинарный вид."""
     image = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
     if image is None:
-        raise FileNotFoundError("Не удалось загрузить изображение")
+        raise FileNotFoundError("Не удалось загрузить изображение: {}".format(path))
 
     _, binary = cv2.threshold(image, 127, 255, cv2.THRESH_BINARY)
     return binary
