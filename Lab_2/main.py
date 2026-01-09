@@ -19,16 +19,17 @@ def parse_args():
 def main():
     args = parse_args()
 
+    # Инициализация видео
     cap = cv2.VideoCapture(args.video)
     ret, first_frame = cap.read()
     if not ret:
         print("Ошибка загрузки видео")
         return
 
-    first_gray = cv2.cvtColor(first_frame, cv2.COLOR_BGR2GRAY)
+    first_gray = cv2.cvtColor(first_frame, cv2.COLOR_BGR2GRAY) # Конвертируем в градации серого
 
-    # Выбор ROI
-    bbox = cv2.selectROI("Select object", first_frame, fromCenter=False)
+    # Выбор ROI - пользователь выбирает сам прямоугольник
+    bbox = cv2.selectROI("Select object", first_frame, fromCenter=False) # выбор bounding box
     x, y, w, h = map(int, bbox)
 
     roi_gray = first_gray[y:y + h, x:x + w]
@@ -67,8 +68,9 @@ def main():
         if not ret:
             break
 
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) # Текущий кадр
 
+        # Вычисляем оптический поток
         next_pts, status, _ = cv2.calcOpticalFlowPyrLK(
             prev_gray, gray, prev_pts, None, **lk_params
         )
@@ -92,6 +94,7 @@ def main():
             )
 
         elif args.mode == "homography":
+            # Матрица перспективных преобразований
             H, _ = cv2.findHomography(good_old, good_new, cv2.RANSAC, 5.0)
             if H is not None:
                 new_bbox = cv2.perspectiveTransform(bbox_pts, H)
@@ -104,6 +107,7 @@ def main():
                 )
                 bbox_pts[:] = new_bbox
 
+        # Красные кружки на отслеженных точках
         for p in good_new:
             cv2.circle(frame, tuple(p.astype(int)), 3, (0, 0, 255), -1)
 
